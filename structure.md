@@ -61,7 +61,25 @@ The `database` directory contains your database migrations, model factories, and
 <a name="the-public-directory"></a>
 #### The Public Directory
 
-The `public` directory contains the `index.php` file, which is the entry point for all requests entering your application and configures autoloading. This directory also houses your assets such as images, JavaScript, and CSS.
+The `public` directory contains the `index.php` file, which is the entry point for all requests entering your application and configures autoloading. This directory also houses your assets such as images, JavaScript, and CSS. If you want to overwrite this directory, you can use `usePublicPath()` method of application in AppServiceProvider.
+
+```php
+# App\Providers\AppServiceProvider
+public function boot(): void
+{
+    $this->app->usePublicPath(base_path('public_html'));
+}
+```
+Also, If you are using vite with laravel-vite-plugin package, you have to update vite.config.js file accordingly.
+```
+plugins: [
+        laravel({
+            input: 'resources/js/app.js',
+            refresh: true,
+            publicDirectory: 'public_html',
+        })
+    ],
+```
 
 <a name="the-resources-directory"></a>
 #### The Resources Directory
